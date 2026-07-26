@@ -30,7 +30,7 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
-const paymentRoutes = require("./routes/paymentRoutes");
+// const paymentRoutes = require("./routes/paymentRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 
 app.use("/api/auth", authRoutes);
@@ -39,7 +39,7 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
-app.use("/api/payment", paymentRoutes);
+// app.use("/api/payment", paymentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/contact", contactRoutes);
 
@@ -52,9 +52,9 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // =======================
 // TEST ROUTES
 // =======================
-{/**app.get("/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Payment Platform API");
-}); */}
+});
 
 // profile test (auth)
 app.get("/api/profile", protect, (req, res) => {
