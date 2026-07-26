@@ -52,9 +52,9 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // =======================
 // TEST ROUTES
 // =======================
-app.get("/", (req, res) => {
+{/**app.get("/", (req, res) => {
   res.send("Payment Platform API");
-});
+}); */}
 
 // profile test (auth)
 app.get("/api/profile", protect, (req, res) => {
