@@ -17,7 +17,13 @@ const app = express();
 // =======================
 // MIDDLEWARES
 // =======================
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://farjallah-react-4ffg.vercel.app",
+    "http://localhost:3000"
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
