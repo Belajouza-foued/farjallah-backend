@@ -6,6 +6,7 @@ const { protect, adminOnly } = require("../middleware/authMiddleware");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const User = require("../models/User");
+const Invoice = require("../models/Invoice");
 
 
 // =======================
@@ -31,7 +32,49 @@ router.get("/products", protect, adminOnly, async (req,res)=>{
     }
 
 });
+// invoices//
+// =======================
+// GET ALL INVOICES
+// =======================
 
+router.get("/invoices", protect, adminOnly, async(req,res)=>{
+
+  try{
+
+    const invoices = await Invoice.find()
+      .sort({createdAt:-1});
+
+
+    console.log("TOTAL FACTURES :", invoices.length);
+
+    invoices.forEach(inv=>{
+        console.log(
+          inv.invoiceNumber,
+          inv.customer?.firstName,
+          inv.user,
+          inv.createdAt
+        );
+    });
+
+
+    res.json({
+      success:true,
+      invoices
+    });
+
+
+  }catch(error){
+
+    console.log(error);
+
+    res.status(500).json({
+      success:false,
+      message:error.message
+    });
+
+  }
+
+});
 
 // =======================
 // GET ALL ORDERS

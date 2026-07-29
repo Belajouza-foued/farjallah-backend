@@ -5,6 +5,7 @@ const path = require("path");
 const adminRoutes = require("./routes/adminRoutes");
 const connectDB = require("./config/db");
 const { protect } = require("./middleware/authMiddleware");
+const invoiceRoutes = require("./routes/invoiceRoutes");
 
 // Load env FIRST
 dotenv.config();
@@ -17,13 +18,7 @@ const app = express();
 // =======================
 // MIDDLEWARES
 // =======================
-app.use(cors({
-  origin: [
-    "https://farjallah-react-4ffg.vercel.app",
-    "http://localhost:3000"
-  ],
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -38,6 +33,7 @@ const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 // const paymentRoutes = require("./routes/paymentRoutes");
 const contactRoutes = require("./routes/contactRoutes");
+const deliveryRoutes = require("./routes/deliveryRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
@@ -48,6 +44,11 @@ app.use("/api/orders", orderRoutes);
 // app.use("/api/payment", paymentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/contact", contactRoutes);
+app.use(
+"/api/invoices",
+invoiceRoutes
+);
+app.use("/api/delivery", deliveryRoutes);
 
 
 // =======================

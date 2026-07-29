@@ -12,6 +12,7 @@ const createProduct = async (req, res) => {
       price,
       stock,
       sku,
+      location,
       brand,
       category,
     } = req.body;
@@ -31,6 +32,7 @@ const images = req.files ? req.files.map(file => file.filename) : [];
       price,
       stock,
       sku,
+      location,
       brand,
       category,
       seller: req.user._id, // vient du middleware JWT
@@ -185,6 +187,7 @@ message:"Produit introuvable"
 product.name = req.body.name;
 product.price = req.body.price;
 product.stock = req.body.stock;
+product.location = req.body.location;
 product.description = req.body.description;
 
 
