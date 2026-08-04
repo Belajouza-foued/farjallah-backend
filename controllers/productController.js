@@ -15,6 +15,7 @@ const createProduct = async (req, res) => {
       location,
       brand,
       category,
+      compatibleVehicles,
     } = req.body;
 const images = req.files ? req.files.map(file => file.filename) : [];
     const exists = await Product.findOne({ sku });
@@ -35,6 +36,9 @@ const images = req.files ? req.files.map(file => file.filename) : [];
       location,
       brand,
       category,
+      compatibleVehicles:
+JSON.parse(compatibleVehicles || "[]"),
+
       seller: req.user._id, // vient du middleware JWT
        images
     });
@@ -60,10 +64,14 @@ const getProducts = async (req, res) => {
   try {
     const search = req.query.search || "";
     const categorySlug = req.query.category || "";
+    const vehicleId = req.query.vehicle || "";
+    // Filtre par véhicule
+     let filter = {};
+if (vehicleId) {
+  filter.compatibleVehicles = vehicleId;
+}
 
-    let filter = {};
-
-    // Recherche globale
+       // Recherche globale
     if (search) {
       const category = await Category.findOne({
         slug: search.toLowerCase()
@@ -117,7 +125,8 @@ const getProducts = async (req, res) => {
 
     const products = await Product.find(filter)
       .populate("category")
-      .populate("seller", "firstName lastName email");
+      .populate("seller", "firstName lastName email")
+      .populate("compatibleVehicles");
 
     res.status(200).json({
       success: true,
@@ -143,7 +152,8 @@ const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
       .populate("category")
-      .populate("seller", "firstName lastName email");
+      .populate("seller", "firstName lastName email")
+      .populate("compatibleVehicles")
 
     if (!product) {
       return res.status(404).json({

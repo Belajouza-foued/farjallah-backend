@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const adminRoutes = require("./routes/adminRoutes");
 const connectDB = require("./config/db");
+const vehicleRoutes = require("./routes/vehicleRoutes");
 const { protect } = require("./middleware/authMiddleware");
 const invoiceRoutes = require("./routes/invoiceRoutes");
 
@@ -35,6 +36,7 @@ const orderRoutes = require("./routes/orderRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const deliveryRoutes = require("./routes/deliveryRoutes");
 
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/categories", categoryRoutes);
@@ -49,6 +51,7 @@ app.use(
 invoiceRoutes
 );
 app.use("/api/delivery", deliveryRoutes);
+app.use("/api/vehicles", vehicleRoutes);
 
 
 // =======================

@@ -54,6 +54,12 @@ const productSchema = new mongoose.Schema(
       ref: "Category",
       required: true,
     },
+    compatibleVehicles:[
+    {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Vehicle"
+    }
+],
 
     seller: {
       type: mongoose.Schema.Types.ObjectId,
