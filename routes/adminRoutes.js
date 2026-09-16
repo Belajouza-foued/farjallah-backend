@@ -154,7 +154,7 @@ router.get("/users", protect, adminOnly, async (req, res) => {
 router.get("/stock", protect, adminOnly, async (req,res)=>{
 
     const products = await Product.find()
-        .select("name stock images sku");
+        .select("name stock images sku location");
 
     res.json(products);
 
@@ -190,7 +190,7 @@ router.put("/stock/:id", protect, adminOnly, async (req, res) => {
         }
 
         product.stock = Number(req.body.stock);
-
+  product.location = req.body.location || "";
         await product.save();
 
         res.json({

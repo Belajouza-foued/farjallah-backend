@@ -12,6 +12,7 @@ const productSchema = new mongoose.Schema({
     },
 
     sku: String,
+    location: String,
 
     category: {
         type: mongoose.Schema.Types.ObjectId,
