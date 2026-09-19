@@ -1,22 +1,24 @@
 const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
 const path = require("path");
 
-// stockage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
+// =======================
+// CLOUDINARY STORAGE
+// =======================
 
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      Date.now() + "-" + file.originalname
-    );
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "farjallah-auto/products",
+    allowed_formats: ["jpg", "jpeg", "png", "webp", "avif"],
   },
 });
 
-// filtre images seulement
-// filtre images seulement
+// =======================
+// FILTRE IMAGES
+// =======================
+
 const fileFilter = (req, file, cb) => {
   const ext = path.extname(file.originalname).toLowerCase();
 
@@ -33,6 +35,13 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const upload = multer({ storage, fileFilter });
+// =======================
+// MULTER
+// =======================
+
+const upload = multer({
+  storage,
+  fileFilter,
+});
 
 module.exports = upload;

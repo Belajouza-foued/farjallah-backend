@@ -17,7 +17,7 @@ const createProduct = async (req, res) => {
       category,
       compatibleVehicles,
     } = req.body;
-const images = req.files ? req.files.map(file => file.filename) : [];
+const images = req.files ? req.files.map(file => file.path) : [];
     const exists = await Product.findOne({ sku });
 
     if (exists) {
@@ -202,10 +202,8 @@ product.description = req.body.description;
 
 
 // nouvelles images
-if(req.files && req.files.length > 0){
-
-product.images = req.files.map(file=>file.filename);
-
+if (req.files && req.files.length > 0) {
+  product.images = req.files.map(file => file.path);
 }
 
 
