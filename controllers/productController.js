@@ -10,6 +10,7 @@ const createProduct = async (req, res) => {
       name,
       description,
       price,
+      oldPrice,
       stock,
       sku,
       location,
@@ -31,6 +32,7 @@ const images = req.files ? req.files.map(file => file.path) : [];
       name,
       description,
       price,
+      oldPrice,
       stock,
       sku,
       location,
@@ -196,6 +198,7 @@ message:"Produit introuvable"
 
 product.name = req.body.name;
 product.price = req.body.price;
+product.oldPrice = req.body.oldPrice;
 product.stock = req.body.stock;
 product.location = req.body.location;
 product.description = req.body.description;
